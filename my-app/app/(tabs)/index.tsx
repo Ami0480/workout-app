@@ -1,10 +1,22 @@
 import { useState } from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, Alert } from "react-native";
 
 export default function Index() {
   const [selectedDuration, setSelectedDuration] = useState<string | null>(null);
   const [selectedTarget, setSelectedTarget] = useState<string | null>(null);
   const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
+
+  const isComplete = selectedDuration && selectedTarget && selectedStyle;
+
+  const handleNext = () => {
+    if (!isComplete) {
+      Alert.alert(
+        "Please select all options",
+        "Choose duration, target area, and style to continue."
+      );
+      return;
+    }
+  };
 
   return (
     <View className="flex-1 pt-14 px-6 bg-white dark:bg-black">
@@ -96,8 +108,18 @@ export default function Index() {
           </View>
         </View>
 
-        <TouchableOpacity className="items-center my-5 py-2 rounded-full bg-[#7eff00]">
-          <Text className="text-xl">Next</Text>
+        <TouchableOpacity
+          className={`items-center my-5 py-2 rounded-full ${
+            isComplete ? "bg-[#7eff00]" : "bg-gray-300"
+          }`}
+          onPress={handleNext}
+          disabled={!isComplete}
+        >
+          <Text
+            className={`text-xl ${isComplete ? "text-black" : "text-gray-500"}`}
+          >
+            Next
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
