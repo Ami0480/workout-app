@@ -1,10 +1,15 @@
+import { useState } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 
 export default function Index() {
+  const [selectedDuration, setSelectedDuration] = useState<string | null>(null);
+  const [selectedTarget, setSelectedTarget] = useState<string | null>(null);
+  const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
+
   return (
     <View className="flex-1 pt-14 px-6 bg-white dark:bg-black">
       <Text className="text-4xl font-bold mt-5 text-black dark:text-white">
-        Let's Crush It Today
+        Let's Crush It <Text className="text-[#7eff00]">Today</Text>
       </Text>
       <Text className="text-xl mt-2">Customize your session</Text>
 
@@ -15,7 +20,23 @@ export default function Index() {
             {["10mins", "20mins", "30mis", "60mins"].map((item) => (
               <TouchableOpacity
                 key={item}
-                className="w-44 items-center py-1 border rounded-full m-2"
+                className={`w-44 items-center py-1 border rounded-full m-2 ${
+                  selectedDuration === item
+                    ? "border-[#66E1FF] border-2"
+                    : "border-gray-400 border"
+                }`}
+                style={
+                  selectedDuration === item
+                    ? {
+                        shadowColor: "#66E1FF",
+                        shadowOffset: { width: 0, height: 0 },
+                        shadowOpacity: 0.4,
+                        shadowRadius: 3,
+                        elevation: 8,
+                      }
+                    : {}
+                }
+                onPress={() => setSelectedDuration(item)}
               >
                 <Text className="text-xl">{item}</Text>
               </TouchableOpacity>
@@ -36,7 +57,12 @@ export default function Index() {
             ].map((item) => (
               <TouchableOpacity
                 key={item}
-                className="w-44 items-center py-1 border rounded-full m-2"
+                className={`w-44 items-center py-1 border rounded-full m-2 ${
+                  selectedTarget === item
+                    ? "border-[#66E1FF] border-2"
+                    : "border-gray-400 border"
+                }`}
+                onPress={() => setSelectedTarget(item)}
               >
                 <Text className="text-xl">{item}</Text>
               </TouchableOpacity>
@@ -57,7 +83,12 @@ export default function Index() {
             ].map((item) => (
               <TouchableOpacity
                 key={item}
-                className="w-44 items-center py-1 border rounded-full m-2"
+                className={`w-44 items-center py-1 border rounded-full m-2 ${
+                  selectedStyle === item
+                    ? "border-[#66E1FF] border-2"
+                    : "border-gray-400 border"
+                }`}
+                onPress={() => setSelectedStyle(item)}
               >
                 <Text className="text-xl">{item}</Text>
               </TouchableOpacity>
@@ -65,8 +96,8 @@ export default function Index() {
           </View>
         </View>
 
-        <TouchableOpacity className="items-center my-5 py-2 border rounded-full">
-          <Text className="text-xl">Start Workout</Text>
+        <TouchableOpacity className="items-center my-5 py-2 rounded-full bg-[#7eff00]">
+          <Text className="text-xl">Next</Text>
         </TouchableOpacity>
       </View>
     </View>
