@@ -4,5 +4,15 @@ import "../global.css";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  return <Stack screenOptions={{ headerShown: false }} />;
+
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: {
+          backgroundColor: colorScheme === "dark" ? "#000" : "#fff",
+        },
+      }}
+    />
+  );
 }
