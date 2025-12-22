@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useRouter } from "expo-router";
+
 import { TouchableOpacity, Alert, ScrollView } from "react-native";
 import { ThemedView } from "../../components/themedView";
 import { ThemedText } from "../../components/themedText";
@@ -8,9 +10,11 @@ export default function Index() {
   const [selectedTarget, setSelectedTarget] = useState<string | null>(null);
   const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
 
-  const isComplete = selectedDuration && selectedTarget && selectedStyle;
+  const isComplete = !!selectedDuration && !!selectedTarget && !!selectedStyle;
+  const router = useRouter();
 
   const handleNext = () => {
+    console.log("Next pressed:", isComplete);
     if (!isComplete) {
       Alert.alert(
         "Please select all options",
@@ -18,6 +22,14 @@ export default function Index() {
       );
       return;
     }
+    router.push({
+      pathname: "/confirm",
+      params: {
+        duration: selectedDuration,
+        target: selectedTarget,
+        style: selectedStyle,
+      },
+    });
   };
 
   return (
@@ -143,7 +155,6 @@ export default function Index() {
               isComplete ? "bg-[#39FF14]" : "bg-gray-300"
             }`}
             onPress={handleNext}
-            disabled={!isComplete}
           >
             <ThemedText className="text-xl" style={{ color: "black" }}>
               Next
