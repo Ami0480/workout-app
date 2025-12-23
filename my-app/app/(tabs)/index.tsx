@@ -14,7 +14,6 @@ export default function Index() {
   const router = useRouter();
 
   const handleNext = () => {
-    console.log("Next pressed:", isComplete);
     if (!isComplete) {
       Alert.alert(
         "Please select all options",
@@ -37,7 +36,7 @@ export default function Index() {
       <ThemedView className="w-full max-w-[380px] self-center pt-8 px-6">
         <ThemedText className="text-4xl font-bold mt-5">
           Let's Crush It{" "}
-          <ThemedText style={{ color: "#39FF14" }}>Today</ThemedText>
+          <ThemedText style={{ color: "#00F0FF" }}>Today</ThemedText>
         </ThemedText>
         <ThemedText className="text-xl mt-2">Customize your session</ThemedText>
 
@@ -152,7 +151,9 @@ export default function Index() {
 
           <TouchableOpacity
             className={`items-center my-5 py-2 rounded-full ${
-              isComplete ? "bg-[#39FF14]" : "bg-gray-300"
+              isComplete
+                ? "border border-[#00F0FF] bg-[#00F0FF]"
+                : "border border-gray-300 bg-gray-300"
             }`}
             onPress={handleNext}
           >
