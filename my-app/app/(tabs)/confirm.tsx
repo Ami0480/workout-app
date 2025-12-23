@@ -1,6 +1,5 @@
 import { ScrollView, TouchableOpacity } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-
 import { ThemedView } from "../../components/themedView";
 import { ThemedText } from "../../components/themedText";
 
